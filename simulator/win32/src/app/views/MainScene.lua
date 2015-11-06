@@ -9,9 +9,11 @@ function MainScene:onCreate()
 
     -- add HelloWorld label
     cc.Label:createWithSystemFont("Hello World", "Arial", 40)
-        :move(display.cx, display.cy + 200 - 111)
+        :move(display.cx, display.cy + 200)
         :addTo(self)
-
+  local map = ccexp.TMXTiledMap:create("tmx/class.tmx")
+    	map:move(333,333)
+    	:addTo(self)
 end
 
 return MainScene

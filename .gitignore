@@ -1,8 +1,9 @@
 .settings
 frameworks
+res
 runtime
+src
 *.exe
 *.ilk
 *.pdb
 *.dll
-lang
