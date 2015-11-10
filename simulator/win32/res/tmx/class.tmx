@@ -6,9 +6,14 @@
  <tileset firstgid="19" name="tiles-gakuen-001" tilewidth="32" tileheight="32">
   <image source="../tileSets/tiles-gakuen-001.png" width="256" height="736"/>
  </tileset>
+ <layer name="wall_tiles-gakuen-001" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2bEJACAQBEHbsP9GTRXMXWQGroKNnh8DAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD41dzGO/My3tGjSY8ePVr0aNGjRY8WPVr0aNGjRY8WPTrc5y16tOjRokeLHi16NPhHtejRokebHqcFwEYGpQ==
+  </data>
+ </layer>
  <layer name="wall_053-Wall01" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt2skKwjAUhtHisHHWne//oragq0ocoNdfPQfuSiSQrwVJ7DoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAs6w8OY/N+jgUzu7MWY/vGZ639fdWhn9Mb3/s3rR7U0yOLHln0yKJHlqoe5+vQpkeWqh6rfjZFa32zRTf9Pg0tlkVr/YKp35FtP7vr+P3wmB45hjO+qc+VhrOr23miM6y2qud1W7jWN9Mjix5Z9MiiR5aqPXI/+BzPbBY9suiRRY8semRxH5VFjyx6ZBnu7Kr/R+2OcOwCUC0JJw==
+   eJzt2skKwjAUhtHisFHr9P4Pawq6qtQBev3Vc+CuRAL5WheJXQcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJBl+8FhbNnmVDCLO2sxdpj4bGp/X3Vsc37je/9mqgf19MiiRxY9suiRRY8semSp6rFpsyta65utuvn3aWixLlrrF8z9jvRt9tfx+/iYHjmGM765z5WGs6vbeaIzrGlVz2tfuNY30yOLHln0yKJHlqo9cj/4HM9sFj2y6JFFjyx6ZNEjix5Z9Mgy3NlV/4/aHeHYBeARCC0=
   </data>
  </layer>
  <layer name="floor_tiles-gakuen-001" width="100" height="100">
@@ -28,7 +33,7 @@
  </layer>
  <layer name="thing1_tiles-gakuen-001" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt0b2KwkAYhtHcg+Wq27iLgi6KeyeulVqJlVqt3r9fkcAY4h8Ek+IceAhMMRl4swwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgyz6SCp0k3ivdo5tnj+f1on5NfZbutsfrvqLvikY3zu81LN1tj+ft8u8k+qloduP8XtPSPwZ59njsGB2iRfRXU8voN2mcN0+i2jk6RatoXVOb0j+KXQAAAGiPbdMP4Mq+6QdwxR7tYo92+W/6AQAAALzNBRDBH5M=
+   eJzt0c1qwkAUgNG8R2tdtEpFK/bnTawr7UpcWVfq+/cuIoxhDBaDyeIc+AgMYWaYWxQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARfGQVLfGbT6u/C99+8cy87heL3pqqH5lb/P4v0E0zDS6sF7Xa2Xv0zyek8jblN+3aJrp/cJ6XbPKGS9l4yTydtFvNI++G2oRfSVNyj6TyDtGh2gZrRrqp3LGaS4AAAB0x7rtC3Bm2/YFOGMe3WIe3bJv+wIAAADczR+kFCCF
   </data>
  </layer>
  <layer name="thing2_tiles-gakuen-001" width="100" height="100">
@@ -38,7 +43,27 @@
  </layer>
  <layer name="thing3_tiles-gakuen-001" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJztzjEOQEAARNE9lTgRKqvC8U0cQINsyHvJ76aYUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAK0Ma09T6CKc51bS0PvID3QP7NW1pv38HPqNvfQAAAAAAAAAAgNcdZzIEjA==
+   eJztzjEOQFAURNG/KrEUK0CFCsv38hegQR5yTnK7KaYUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOBMHw3RmH2EaormaMk+8gPNDfs12qL9+h34jDb7AAAAAAAAAAA8oMs+AC9zAHYhBOQ=
+  </data>
+ </layer>
+ <layer name="desk_tiles-gakuen-001" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2DEKACEMBED/dnb+/z93hYUEBIUTVGYgRRatF5ISAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMA9nm9ys+eaRTGP//hHqdPbZ98BrDLaCzHXH2voD+AU+mMv+gM4hfvVXvQHAD0vJPgR0Q==
+  </data>
+ </layer>
+ <layer name="seat_tiles-gakuen-001" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1SEOwCAMQFHutQSN3P1PM4OtIISlwHtJRUkF7pcCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHC2J3ivv/7iTq1PtI/eMeftE+2jdwCr6Ecu+gHsQj9y0Q9gF/qRi34AmXwQzhN6
+  </data>
+ </layer>
+ <layer name="route_tiles-gakuen-001" width="100" height="100" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt1UEKgDAQBMG8I/9/qEcRRNzV4CBVkJuCODQZAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+IP59QdwYI+eWTidd+xSU/23nUONLbLYI8vVHXH2TOc57tNHFn1k0UcWfWTRRxZ9ZNFHlpV92KRmZRv2qHt6L+jjXfrIoo8s+siijzz6gN0GbdYqDQ==
+  </data>
+ </layer>
+ <layer name="limit_tiles-gakuen-001" width="100" height="100" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt0MEJwDAAA7HM0v2HzLMjnCES+G24cwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4G3fwPjVPer/NXWP+n9N3aP+X1P3qP/X1D3q/zV1j/p/Td2j/l9T96j/19Q96v81dY/6f03do/5fU/eo/9fUPer/NXWP+n9N3aP+X1P3qP/X1D3q/zV1j/p/Td2j/l9T96j/19Q96v81dY/6f03do/5fU/eo/9fUPer/NXWP+n9N3aP+X1P3qP/X1D3q/zV1j/p/yQW1Bgxb
   </data>
  </layer>
 </map>

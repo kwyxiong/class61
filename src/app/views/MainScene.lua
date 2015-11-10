@@ -3,17 +3,34 @@ local MainScene = class("MainScene", cc.load("mvc").ViewBase)
 
 function MainScene:onCreate()
     -- add background image
-    display.newSprite("HelloWorld.png")
-        :move(display.center)
-        :addTo(self)
+    -- display.newSprite("HelloWorld.png")
+    --     :move(display.center)
+    --     :addTo(self)
 
-    -- add HelloWorld label
-    cc.Label:createWithSystemFont("Hello World", "Arial", 40)
-        :move(display.cx-500, display.cy -500)
-        :addTo(self)
+    -- -- add HelloWorld label
+    -- cc.Label:createWithSystemFont("Hello World", "Arial", 40)
+    --     :move(display.cx-500, display.cy -500)
+    --     :addTo(self)
+    local layer = cc.Layer:create()
+    	:addTo(self)
+    local kTagTileMap = 1
+
+
+    local function onTouchesMoved(touches, event )
+        local diff = touches[1]:getDelta()
+        local node = layer:getChildByTag(kTagTileMap)
+        local currentPosX, currentPosY= node:getPosition()
+        node:setPosition(cc.p(currentPosX + diff.x, currentPosY + diff.y))
+    end
+
+    local listener = cc.EventListenerTouchAllAtOnce:create()
+    listener:registerScriptHandler(onTouchesMoved,cc.Handler.EVENT_TOUCHES_MOVED )
+    local eventDispatcher = layer:getEventDispatcher()
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
+
     local map = ccexp.TMXTiledMap:create("tmx/class.tmx")
     map:move(333 - 500,333 - 500)
-    	:addTo(self)
+    	:addTo(layer, 0, kTagTileMap)
 
     -- local layer = map:getLayer("route")
     -- local size = layer:getLayerSize()
