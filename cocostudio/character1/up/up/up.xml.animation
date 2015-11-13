@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<AnimationProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>E:\class61\cocostudio\character1\up\up</ProjectDir>
+  <Version>1.6.0.0</Version>
+  <Resources>E:\class61\cocostudio\character1\up\up\Resources</Resources>
+  <Name>up</Name>
+  <JsonFileName>up.json</JsonFileName>
+  <JsonFolder>E:\class61\cocostudio\character1\up\up\Json</JsonFolder>
+  <JsonList />
+  <CanvasSize>
+    <Width>0</Width>
+    <Height>0</Height>
+  </CanvasSize>
+  <filePath>E:\class61\cocostudio\character1\up\up\up.xml.animation</filePath>
+  <ProjectType>AnimationProject</ProjectType>
+  <ResRelativePath />
+  <ResourceFileList>
+    <string>res/characters/character1.plist</string>
+  </ResourceFileList>
+  <bBatchImage>true</bBatchImage>
+</AnimationProject>

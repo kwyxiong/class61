@@ -135,7 +135,7 @@
         <key>forceIdenticalLayout</key>
         <false/>
         <key>outputFormat</key>
-        <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
+        <enum type="SettingsBase::OutputFormat">RGBA4444</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
@@ -166,7 +166,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>character1 (16).png</filename>
             <filename>character1 (1).png</filename>
             <filename>character1 (2).png</filename>
             <filename>character1 (3).png</filename>
@@ -182,6 +181,7 @@
             <filename>character1 (13).png</filename>
             <filename>character1 (14).png</filename>
             <filename>character1 (15).png</filename>
+            <filename>character1 (16).png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

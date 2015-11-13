@@ -1,6 +1,7 @@
 
+local ActionPlayer = require("app.utils.ActionPlayer")
 local MainScene = class("MainScene", cc.load("mvc").ViewBase)
-
+local scheduler = cc.Director:getInstance():getScheduler()
 function MainScene:onCreate()
     -- add background image
     -- display.newSprite("HelloWorld.png")
@@ -31,6 +32,10 @@ function MainScene:onCreate()
     local map = ccexp.TMXTiledMap:create("tmx/class.tmx")
     map:move(333 - 500,333 - 500)
     	:addTo(layer, 0, kTagTileMap)
+    display.loadSpriteFrames("characters/character1.plist", "characters/character1.png")
+    self.actionPlayer = ActionPlayer.new({ani = "character1"})
+        :move(333, 333)
+        :addTo(self, 999)
 
     -- local layer = map:getLayer("route")
     -- local size = layer:getLayerSize()
@@ -52,6 +57,13 @@ function MainScene:onCreate()
     --         end 
     --     end 
     -- end
+    
+    self.actionPlayer:playAction("up")
+    self:onUpdate(handler(self, self.onTick))
+end
+
+function MainScene:onTick(dt)
+    self.actionPlayer:onPlay(dt)
 end
 
 return MainScene
