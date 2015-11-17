@@ -56,15 +56,15 @@
  </layer>
  <layer name="hero" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt0jERAAAMAjGcY71Lq6FLcvcKIAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPjTjV+NLcD/ATgDtzUC+w==
+   eJzt07ENAAAIAjA+93UXE09wsE24AEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADu1IRbFV2A/fOdD8BqPEMDeg==
   </data>
  </layer>
  <layer name="seat_tiles-gakuen-001" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1SEOwCAMQFHutQSN3P1PM4OtIISlwHtJRUkF7pcCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHC2J3ivv/7iTq1PtI/eMeftE+2jdwCr6Ecu+gHsQj9y0Q9gF/qRi34AmXwQzhN6
+   eJzt1TEKACAMBEGfZ+n/X2OT1kIkcMIMpAhcv2MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECPWXf6b3e8WXWn/3YH0EU/sugH8Av9yKIfwC/0I4t+AEk2nnsTAQ==
   </data>
  </layer>
- <layer name="route_tiles-gakuen-001" width="100" height="100">
+ <layer name="route_tiles-gakuen-001" width="100" height="100" visible="0">
   <data encoding="base64" compression="zlib">
    eJzt1UEKgCAQhlHvfzUv1bJNRDMp/cF74E5BHD4cAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNXm1xf4qVlYnTPmUlN9286ixiyymEeWuz/iak9nH8/pI4s+sugjiz6y6COLPrLoI8vOPsykZmcb5lH39l/Qx1r6yKKPLPrIoo88+oDTAQAmR48=
   </data>

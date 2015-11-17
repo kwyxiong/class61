@@ -7,11 +7,8 @@ local ActionPlayer = require("app.views.ActionPlayer")
 local MainScene = class("MainScene", cc.load("mvc").ViewBase)
 local scheduler = cc.Director:getInstance():getScheduler()
 function MainScene:onCreate()
-
-
     self:initCamera()
     self:initMap()
-
     self:initHero()
     self:onUpdate(handler(self, self.onTick))
 
@@ -66,8 +63,13 @@ function MainScene:initCamera()
 end
 
 function MainScene:initMap()
-    self.map = MyMap.new("tmx/class.tmx")
+    self.map = MyMap.new("tmx/class.tmx", handler(self, self.mapTouch))
         :addTo(self.camera)
+    self.map:setTouchEnabled(true)
+end
+
+function MainScene:mapTouch(x, y)
+    self.actionPlayer:moveToMap(x, y)
 end
 
 function MainScene:initHero()
