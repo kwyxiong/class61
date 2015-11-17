@@ -2,7 +2,7 @@
 -- Author: kwyxiong
 -- Date: 2015-11-13 14:28:52
 --
-
+local Route_pt = require("app.utils.Route_pt")
 local ActionPlayer = class("ActionPlayer", function()
     return display.newNode()
 end)
@@ -16,8 +16,21 @@ function ActionPlayer:ctor(arg)
 	self.curLoopCount = 0  
 	self.playCount = -1
 	self.sprite_ = display.newSprite():addTo(self)
+	self.sprite_:setAnchorPoint(cc.p(0.5, 0))
 	self.actions = {}
 	
+end
+
+function ActionPlayer:moveToMap(x, y)
+	-- local pt = Route_pt.new(x, y)
+
+	self:setPosition((x + 0.5) * 32, (100 - y - 1) * 32)
+	return self
+end
+
+function ActionPlayer:addToMap(map)
+	map:getLayer("hero"):addChild(self)
+	return self
 end
 
 
