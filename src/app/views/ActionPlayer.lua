@@ -7,8 +7,9 @@ local ActionPlayer = class("ActionPlayer", function()
     return display.newNode()
 end)
 
-function ActionPlayer:ctor(arg)
-	self.aniData_ = require("app.ani." .. arg.ani)
+function ActionPlayer:ctor(heroModel)
+	self.model = heroModel
+	self.aniData_ = require("app.ani." .. self.model.ani)
 	self.frameSequence = {}
 	self.timesSequence = {}
 	self.sequenceIndex = 0 
@@ -21,17 +22,6 @@ function ActionPlayer:ctor(arg)
 	
 end
 
-function ActionPlayer:moveToMap(x, y)
-	-- local pt = Route_pt.new(x, y)
-
-	self:setPosition((x + 0.5) * 32, (100 - y - 1) * 32)
-	return self
-end
-
-function ActionPlayer:addToMap(map)
-	map:getLayer("hero"):addChild(self)
-	return self
-end
 
 
 function ActionPlayer:playAction(actionName)
@@ -42,6 +32,11 @@ function ActionPlayer:playAction(actionName)
 		fSequence[#fSequence + 1] = textures[v + 1] .. ".png"
 	end
 	local tSequence =Layer1[2] 
+	if self.model.speed then
+		for k = 1, #Layer1[2] - 1 do
+			tSequence[k] = self.model.speed
+		end
+	end
 	local loopCount__ =self.aniData_[actionName]["loop"]
 	self:setFrameSequence(fSequence,tSequence,loopCount__)
 end
