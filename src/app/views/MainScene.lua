@@ -75,7 +75,7 @@ end
 
 function MainScene:initHero()
     self.heroNode = HeroNode.new(Character1Model.new())
-        :moveToMap(2, 98)
+        :setToMap(2, 98)
         :addToMap(self.map)
     -- local pt = Route_pt.new(11, 86)
     -- self.heroNode:move()

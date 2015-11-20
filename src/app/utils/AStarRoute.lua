@@ -236,7 +236,7 @@ function AStarRoute:getResult()
 	local route = {}
 	self:searchPath()
 	if not self.isFound then
-		return 
+		return result
 	end
     --openList是从目标点向起始点倒推的
     local iX = self.goal_x
@@ -260,7 +260,7 @@ function AStarRoute:getResult()
 	local size = #route
     -- dump(route, "route")
     for k = 1, size do
-    	result[#result + 1] = Route_pt.new(route[k]:getX() - 1, route[k]:getY() - 1)
+    	result[size - k + 1] = cc.p(route[k]:getX() - 1, route[k]:getY() - 1)
     end
   
     return result

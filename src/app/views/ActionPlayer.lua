@@ -32,9 +32,9 @@ function ActionPlayer:playAction(actionName)
 		fSequence[#fSequence + 1] = textures[v + 1] .. ".png"
 	end
 	local tSequence =Layer1[2] 
-	if self.model.speed then
+	if self.model.actionSpeed then
 		for k = 1, #Layer1[2] - 1 do
-			tSequence[k] = self.model.speed
+			tSequence[k] = self.model.actionSpeed
 		end
 	end
 	local loopCount__ =self.aniData_[actionName]["loop"]

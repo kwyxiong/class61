@@ -1,9 +1,10 @@
 
+local HeroNode = require("app.views.HeroNode")
 local MyMap = require("app.views.MyMap")
 local MyCamera = require("app.views.MyCamera")
 local Route_pt = require("app.utils.Route_pt")
 local AStarRoute = require("app.utils.AStarRoute")
-local ActionPlayer = require("app.views.ActionPlayer")
+local Character1Model = require("app.models.Character1Model")
 local MainScene = class("MainScene", cc.load("mvc").ViewBase)
 local scheduler = cc.Director:getInstance():getScheduler()
 function MainScene:onCreate()
@@ -19,15 +20,15 @@ function MainScene:onCreate()
 
 
     -- display.loadSpriteFrames("characters/character1.plist", "characters/character1.png")
-    -- self.actionPlayer = ActionPlayer.new({ani = "character1"})
+    -- self.heroNode = ActionPlayer.new({ani = "character1"})
     --     :moveToMap(2, 98)
     --     :addTo(hero_layer)
     -- -- local pt = Route_pt.new(11, 86)
-    -- -- self.actionPlayer:move()
+    -- -- self.heroNode:move()
     -- local size = route_layer:getLayerSize()
     
     
-    -- self.actionPlayer:playAction("up")
+    -- self.heroNode:playAction("up")
     
 
     -- local map = {}
@@ -69,25 +70,24 @@ function MainScene:initMap()
 end
 
 function MainScene:mapTouch(x, y)
-    self.actionPlayer:moveToMap(x, y)
+    self.heroNode:moveToMap(x, y)
 end
 
 function MainScene:initHero()
-    display.loadSpriteFrames("characters/character1.plist", "characters/character1.png")
-    self.actionPlayer = ActionPlayer.new({ani = "character1"})
-        :moveToMap(2, 98)
+    self.heroNode = HeroNode.new(Character1Model.new())
+        :setToMap(4, 98)
         :addToMap(self.map)
     -- local pt = Route_pt.new(11, 86)
-    -- self.actionPlayer:move()
+    -- self.heroNode:move()
     -- local size = route_layer:getLayerSize()
     
-    
-    self.actionPlayer:playAction("up")
+    self.heroNode:up()
+  
 
 end
 
 function MainScene:onTick(dt)
-    self.actionPlayer:onPlay(dt)
+    self.heroNode:onTick(dt)
 end
 
 return MainScene
