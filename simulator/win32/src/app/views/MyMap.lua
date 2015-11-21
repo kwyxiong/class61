@@ -16,6 +16,10 @@ function MyMap:ctor(tmxFile, touchCallback)
 	self:hideLayer()
 end
 
+function MyMap:getPositionByCoor(x, y)
+	return cc.p((x + 0.5) * 32, (100 - y - 1) * 32)
+end
+
 function MyMap:hideLayer()
 	self:getLayer("route_tiles-gakuen-001"):setVisible(false)
 	self:getLayer("limit_tiles-gakuen-001"):setVisible(false)

@@ -6,7 +6,7 @@ local HeroModel = class("HeroModel")
 
 function HeroModel:ctor()
 	self.actionSpeed = 20	--帧间隔
-	self.moveSpeed = 100	--px/s
+	self.moveSpeed = 400	--px/s
 	self.ani = ""	--资源
 	self.resPlist = ""
 	self.resPNG = ""
