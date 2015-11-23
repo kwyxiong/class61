@@ -2,9 +2,9 @@
 -- Author: kwyxiong
 -- Date: 2015-11-19 19:56:15
 --
-local HeroModel = require("app.models.HeroModel")
+local CharacterBaseModel = require("app.models.CharacterBaseModel")
 
-local Character1Model = class("Character1Model", HeroModel)
+local Character1Model = class("Character1Model", CharacterBaseModel)
 
 function Character1Model:ctor()
 	Character1Model.super.ctor(self)

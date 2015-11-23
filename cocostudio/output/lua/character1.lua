@@ -24,7 +24,7 @@ character1.right = { }
 character1.right.textures = { "character1 (9)" ,"character1 (10)" ,"character1 (11)" ,"character1 (12)" }
 -- 碰撞矩形的坐标,对应着图片
 character1.right.collision = { {} ,{} ,{} ,{} }
-character1.right.Layer2 = { { 0 , 1 , 2 , 3 , 0 },{ 5 , 5 , 5 , 5 , 0 } }
+character1.right.Layer1 = { { 0 , 1 , 2 , 3 , 0 },{ 5 , 5 , 5 , 5 , 0 } }
 -- 是否循环播放 right
 character1.right.loop = -1
 -- 动作

@@ -7,7 +7,7 @@
       "name": "right",
       "bone_data": [
         {
-          "name": "Layer2",
+          "name": "Layer1",
           "parent": "",
           "dI": 3,
           "x": 1.5,
@@ -97,7 +97,7 @@
           "sc": 0.333333343,
           "mov_bone_data": [
             {
-              "name": "Layer2",
+              "name": "Layer1",
               "dl": 0.0,
               "frame_data": [
                 {
@@ -193,16 +193,16 @@
     },
     {
       "name": "character1 (10)",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 20.0,
+      "height": 42.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "characters/character1.plist"
     },
     {
       "name": "character1 (11)",
-      "width": 0.0,
-      "height": 0.0,
+      "width": 20.0,
+      "height": 42.0,
       "pX": 0.5,
       "pY": 0.5,
       "plistFile": "characters/character1.plist"

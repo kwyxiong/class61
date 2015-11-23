@@ -16,9 +16,7 @@ function MyMap:ctor(tmxFile, touchCallback)
 	self:hideLayer()
 end
 
-function MyMap:getPositionByCoor(x, y)
-	return cc.p((x + 0.5) * 32, (100 - y - 1) * 32)
-end
+
 
 function MyMap:hideLayer()
 	self:getLayer("route_tiles-gakuen-001"):setVisible(false)
@@ -40,6 +38,7 @@ function MyMap:initRouteMap()
         end
         self.routeMap[#self.routeMap + 1] = res
     end
+    -- dump(self.routeMap, "self.routeMap")
 end
 
 --获取从一个块坐标到另一个块坐标的最短路径
@@ -52,13 +51,61 @@ end
 
 --根据点在屏幕的坐标获得在地图中的x和y块坐标
 function MyMap:getTileCoordinateByTouchLocation(location)
-	local mapPos = cc.Director:getInstance():getRunningScene():convertToNodeSpace(self:convertToWorldSpace(cc.p(0,0)))
-	local relaPosX = location.x - mapPos.x
-	local x = math.floor(relaPosX / 32)
-	local relaPosY = location.y - mapPos.y
-	local y = 100 - 1 - math.floor(relaPosY / 32)	 
+	local relaPos = self:getPosInMapByLocation(location)
+	local x = math.floor(relaPos.x / 32)
+	local y = 100 - 1 - math.floor(relaPos.y / 32)	 
 	-- print("x = " .. x .. " y = " .. y)
 	return x, y
+end
+
+function MyMap:getPosInMapByCoor(coor)
+	return cc.p((coor.x + 0.5) * 32, (100 - coor.y - 0.5) * 32)
+end
+
+function MyMap:getPosInMapByLocation(location)
+	local mapPos = cc.Director:getInstance():getRunningScene():convertToNodeSpace(self:convertToWorldSpace(cc.p(0,0)))
+	local relaPosX = location.x - mapPos.x
+	local relaPosY = location.y - mapPos.y
+	-- dump(cc.p(relaPosX, relaPosY) , "getPosInMapByLocation")
+	return cc.p(relaPosX, relaPosY)
+end
+
+--根据点在屏幕的坐标获得在地图中能行走的距离触摸点最近的块的x和y坐标
+--只支持半径为r个格子
+function MyMap:getClosestMoveabledRoute(location)
+	local route_layer = self:getLayer("route_tiles-gakuen-001")
+	local size = route_layer:getLayerSize()
+	local r = 5
+	local x, y = self:getTileCoordinateByTouchLocation(location)
+	local routes = {}
+	for k = x - r, x + r do
+		for m = y - r, y + r do
+			if  k <= size.width -1 and k >= 0 and m <= size.height - 1 and m >= 0 and 
+				route_layer:getTileGIDAt(cc.p(k, m)) ~= 0 then
+
+				routes[#routes + 1] = cc.p(k, m)
+			end
+		end
+	end
+	-- dump(routes, "routes")
+	if #routes > 0 then
+		local min = 999999
+		local minIndex = 1
+		for k, v in ipairs(routes) do
+			local dis = cc.pGetDistance(self:getPosInMapByCoor(v), self:getPosInMapByLocation(location))
+			-- dump(self:getPosInMapByCoor(v), " x = " .. v.x .. " y = " .. v.y)
+			-- print("x = " .. v.x .. " y = " .. v.y .. " dis = " .. dis)
+			-- print("dis = " .. dis)
+			if dis <= min then
+				min = dis
+				minIndex = k
+			end
+		end
+		-- dump(routes[k], "routes[k]")
+		return routes[minIndex]
+	end
+
+	return nil
 end
 
 function MyMap:setTouchEnabled(enable)
@@ -67,8 +114,8 @@ function MyMap:setTouchEnabled(enable)
 	        	   
 	        if self.touchCallback then
 	        	local location = touches[1]:getLocation()
-	        	local x, y = self:getTileCoordinateByTouchLocation(location)
-	        	self.touchCallback(x, y)
+	        	-- local x, y = self:getTileCoordinateByTouchLocation(location)
+	        	self.touchCallback(location)
 	        end
 	    end
 

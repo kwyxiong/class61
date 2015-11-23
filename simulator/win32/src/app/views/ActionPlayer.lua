@@ -16,15 +16,15 @@ function ActionPlayer:ctor(heroModel)
 	self.timesCount = 0
 	self.curLoopCount = 0  
 	self.playCount = -1
+	self.pauseActionName = nil
 	self.sprite_ = display.newSprite():addTo(self)
 	self.sprite_:setAnchorPoint(cc.p(0.5, 0))
 	self.actions = {}
 	
 end
 
-
-
 function ActionPlayer:playAction(actionName)
+	-- print("playAction " .. actionName)
 	local Layer1 = self.aniData_[actionName]["Layer1"]
 	local textures = self.aniData_[actionName]["textures"]
 	local fSequence = {}
@@ -38,13 +38,14 @@ function ActionPlayer:playAction(actionName)
 		end
 	end
 	local loopCount__ =self.aniData_[actionName]["loop"]
-	self:setFrameSequence(fSequence,tSequence,loopCount__)
+	self:setSequence(fSequence,tSequence,loopCount__)
 end
 
-function ActionPlayer:setFrameSequence(fSequence,tSequence,loopCount__,actionEventTable_)
+function ActionPlayer:setSequence(fSequence,tSequence,loopCount__,actionEventTable_)
 	if fSequence ~= nil and tSequence ~= nil then
 		self.frameSequence = fSequence
 		self.timesSequence = tSequence
+		-- dump(self.timesSequence, "self.timesSequence")
 		self.sequenceIndex = 0
 		-- self.timesCount = self.timesSequence[1] --获得第一帧的切换时间
 		--修改
@@ -68,6 +69,14 @@ function ActionPlayer:setFrameSequence(fSequence,tSequence,loopCount__,actionEve
 		-- end
 
 	end
+end
+
+function ActionPlayer:setFrameSequence(frameSequence)
+	self.frameSequence = frameSequence
+end
+
+function ActionPlayer:setTimesSequence(timesSequence)
+	self.timesSequence = timesSequence
 end
 
 function ActionPlayer:getFrame()
@@ -119,11 +128,11 @@ function ActionPlayer:setDelayNextFrameByAdd(var)
 end
 
 function ActionPlayer:onPlay(ftimes)
-	if not self.timesCount or not self.frameSequence or not self.timesSequence then
+	if not self.frameSequence or not self.timesSequence then
 	    return
 	end
 	if self:isFinished() then
-		-- ------print("ActionPlayer:onPlay isFinished")
+		-- print("ActionPlayer:onPlay isFinished")
 		return 
 	end
 
@@ -137,7 +146,7 @@ function ActionPlayer:onPlay(ftimes)
 				nextIndex = 1 
 			else
 				if self.curLoopCount >= self.playCount then
-					-- ------print("结束了")
+					-- print("结束了")
 					if self.actionEndEvent_ then
 						self.actionEndEvent_()
 					end
@@ -147,23 +156,29 @@ function ActionPlayer:onPlay(ftimes)
 		end
 
 		self.sequenceIndex = nextIndex
+		-- print("nextIndex", nextIndex)
+		-- dump(self.timesSequence, "self.timesSequence")
 		self.timesCount = self.timesSequence[nextIndex]
-		-- ------print("set self.timesCount",self.timesCount)
+		-- print("set self.timesCount",self.timesCount)
 
 		if self.frameSequence ~= nil then
 			local fra = self.frameSequence[self.sequenceIndex]
 			if fra then
-				--print("Sprite Frame ",fra,self.sequenceIndex)
+				-- print("Sprite Frame ",fra,self.sequenceIndex)
 				-- print(fra)
 				-- local temp = display.newSprite("#"..fra)
 				-- if temp == nil then
 				-- 	print(fra)
 				-- end
 
-				self.sprite_:setSpriteFrame(fra)
+				-- self.sprite_:setSpriteFrame(fra)
 
 				if self.frameEvent_ then
-					self.frameEvent_({frame=self.sequenceIndex})
+					if self.frameEvent_({frame=self.sequenceIndex, actionPlayer = self}) then
+						self.sprite_:setSpriteFrame(fra)
+					end
+				else
+					self.sprite_:setSpriteFrame(fra)
 				end
 				
 			end

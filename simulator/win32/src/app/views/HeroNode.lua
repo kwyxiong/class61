@@ -7,21 +7,32 @@ local ActionPlayer = require("app.views.ActionPlayer")
 local HeroNode = class("HeroNode", function() 
 		return display.newNode()
 	end)	
+HeroNode.kActionStateNone = 0
+HeroNode.kActionStateUp = 1
+HeroNode.kActionStateDown = 2
+HeroNode.kActionStateLeft = 3
+HeroNode.kActionStateRight = 4
+HeroNode.kActionStateUpPause = 5
+HeroNode.kActionStateDownPause = 6
+HeroNode.kActionStateLeftPause = 7
+HeroNode.kActionStateRightPause = 8
 
 function HeroNode:ctor(heroModel)
 	self.model = heroModel
 	self.map = nil
+	self.actionState = 0
 	self.curCoordinate = nil 			--当前所在格子
 	self.targetCoordinate = nil 		--当前正前往的格子，与当前所在格子相邻
 	self.moveCoordinates = {}			--当前需要行走的路径
 	self.actionPlayer = ActionPlayer.new(heroModel)
 		:addTo(self)
-
+	self.actionPlayer:setFrameEvent(handler(self, self.frameEvent))
 	self:loadRes()
 	self:registerScriptHandler(handler(self, self.enter_exit))
 end
 
 function HeroNode:enter_exit(name)
+	dump(name, "name")
 	if name == "enter" then
 		
 	elseif name == "exit" then
@@ -29,10 +40,76 @@ function HeroNode:enter_exit(name)
 	end
 end
 
-function HeroNode:up()
-	self.actionPlayer:playAction("up")
+function HeroNode:frameEvent(event)
+	local res = true
+	if event.frame % 2 ~= 0 and not self.targetCoordinate then
+		-- print("pppppppppppppp")
+		event.actionPlayer:setTimesSequence(nil)
+		self.actionState = HeroNode.kActionStateNone
+	elseif (event.frame ) % 2 == 0 and not self.targetCoordinate then
+		event.actionPlayer:setTimesSequence(nil)
+		self.actionState = HeroNode.kActionStateNone
+		res= false		
+	end
+	-- print(res)
+	return res
 end
 
+function HeroNode:up()
+	if self.actionState ~= HeroNode.kActionStateUp then
+		self.actionPlayer:playAction("up")
+		self.actionState = HeroNode.kActionStateUp
+	end
+end
+
+function HeroNode:down()
+	if self.actionState ~= HeroNode.kActionStateDown then
+		self.actionPlayer:playAction("down")
+		self.actionState = HeroNode.kActionStateDown
+	end
+end
+
+function HeroNode:left()
+	if self.actionState ~= HeroNode.kActionStateLeft then
+		self.actionPlayer:playAction("left")
+		self.actionState = HeroNode.kActionStateLeft
+	end
+end
+
+function HeroNode:right()
+	if self.actionState ~= HeroNode.kActionStateRight then
+		self.actionPlayer:playAction("right")
+		self.actionState = HeroNode.kActionStateRight
+	end
+end
+
+function HeroNode:upPause()
+	if self.actionState ~= HeroNode.kActionStateUpPause then
+		self.actionPlayer:pauseOnAction("up", 1)
+		self.actionState = HeroNode.kActionStateUpPause
+	end
+end
+
+function HeroNode:downPause()
+	if self.actionState ~= HeroNode.kActionStateDownPause then
+		self.actionPlayer:pauseOnAction("up", 1)
+		self.actionState = HeroNode.kActionStateDownPause
+	end
+end
+
+function HeroNode:leftPause()
+	if self.actionState ~= HeroNode.kActionStateLeftPause then
+		self.actionPlayer:pauseOnAction("up", 1)
+		self.actionState = HeroNode.kActionStateLeftPause
+	end
+end
+
+function HeroNode:rightPause()
+	if self.actionState ~= HeroNode.kActionStateRightPause then
+		self.actionPlayer:pauseOnAction("up", 1)
+		self.actionState = HeroNode.kActionStateRightPause
+	end
+end
 
 function HeroNode:addToMap(map)
 	self.map = map
@@ -80,17 +157,21 @@ function HeroNode:oneCoorMovedCallback(targetCoordinate)
 		self.targetCoordinate = nil
 	end
 	
-	self:moveOnTick(0.016)	--优化执行oneCoorMovedCallback时角色的卡顿
+	-- self:moveOnTick(0.016)	--优化执行oneCoorMovedCallback时角色的卡顿
 	-- dump(self.targetCoordinate, "self.targetCoordinate")
 end
 
 function HeroNode:moveToMap(x, y)
 	local fromCoor = self.targetCoordinate or self.curCoordinate
 	local toCoor = cc.p(x, y)
+	if fromCoor.x == toCoor.x and fromCoor.y == toCoor.y then
+		return false
+	end
 	self.moveCoordinates = self.map:getRoutesCoordinate(fromCoor, toCoor)
-	dump(self.moveCoordinates, "self.moveCoordinates")
+	-- dump(self.moveCoordinates, "self.moveCoordinates")
 	-- self.targetPos = cc.p((x + 0.5) * 32, (100 - y - 1) * 32)
 	self.targetCoordinate = self.targetCoordinate or self.moveCoordinates[1]
+	return true
 end
 
 function HeroNode:loadRes()
@@ -104,19 +185,24 @@ function HeroNode:moveOnTick(dt)
 		if targetPos.x > curPos.x then 			--向右
 			local dis = math.min(self.model.moveSpeed * 0.016,  - curPos.x + targetPos.x)
 			self:setPositionX(curPos.x + dis)
+			self:right()
 		elseif targetPos.x < curPos.x then 		--向左
 			local dis = math.min(self.model.moveSpeed * 0.016, curPos.x - targetPos.x)
 			self:setPositionX(curPos.x - dis)
+			self:left()
 		elseif targetPos.y > curPos.y then 		--向上
 			local dis = math.min(self.model.moveSpeed * 0.016,  - curPos.y + targetPos.y)
 			self:setPositionY(curPos.y + dis)
+			self:up()
 		elseif targetPos.y < curPos.y then 		--向下
 			local dis = math.min(self.model.moveSpeed * 0.016,   curPos.y - targetPos.y)
 			self:setPositionY(curPos.y - dis)
+			self:down()
 		end
-		if targetPos.x == curPos.x and targetPos.y == curPos.y then
+		if targetPos.x == self:getPositionX() and targetPos.y == self:getPositionY() then
 			self:oneCoorMovedCallback(self.targetCoordinate)
 		end
+		-- print("x = " .. curPos.x .. " y = " .. curPos.y .. ", x = " .. self:getPositionX() .. " y = " .. self:getPositionY())
 	end
 end
 
