@@ -1,4 +1,6 @@
 
+
+local OneByOneLabel = require("app.widgets.OneByOneLabel")
 local HeroNode = require("app.views.HeroNode")
 local MyMap = require("app.views.MyMap")
 local MyCamera = require("app.views.MyCamera")
@@ -54,7 +56,10 @@ function MainScene:onCreate()
     --         print("x = " .. v:getX() .. ", y = " .. v:getY())
     --     end
     -- end
-
+    dump(ccui, "ccui")
+    local label = OneByOneLabel.new()
+        :move(333,333)
+        :addTo(self, 99999)
 end
 
 function MainScene:initCamera()
