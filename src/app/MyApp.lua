@@ -1,4 +1,4 @@
-require("app.Init")
+
 local MyApp = class("MyApp", cc.load("mvc").AppBase)
 
 function MyApp:onCreate()

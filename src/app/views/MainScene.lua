@@ -1,4 +1,6 @@
 
+
+local OneByOneLabel = require("app.widgets.OneByOneLabel")
 local HeroNode = require("app.views.HeroNode")
 local MyMap = require("app.views.MyMap")
 local MyCamera = require("app.views.MyCamera")
@@ -54,7 +56,10 @@ function MainScene:onCreate()
     --         print("x = " .. v:getX() .. ", y = " .. v:getY())
     --     end
     -- end
-
+    -- dump(ccui, "ccui")
+    local label = OneByOneLabel.new()
+        :move(333,333)
+        :addTo(self, 99999)
 end
 
 function MainScene:initCamera()
@@ -64,25 +69,51 @@ function MainScene:initCamera()
 end
 
 function MainScene:initMap()
-    self.map = MyMap.new("tmx/class.tmx", handler(self, self.mapTouch))
+    print("cc.exports.s_tmxClass", cc.exports.s_tmxClass)
+    self.map = MyMap.new(cc.exports.s_tmxClass, handler(self, self.mapTouch))
         :addTo(self.camera)
     self.map:setTouchEnabled(true)
 end
 
-function MainScene:mapTouch(x, y)
-    self.heroNode:moveToMap(x, y)
+function MainScene:mapTouch(location)
+    local route = self.map:getClosestMoveabledRoute(location)
+    local changeDir = function() 
+        local touchPos = self.map:getPosInMapByLocation(location)
+        local heroPos = cc.p(self.heroNode:getPosition())
+        -- dump(touchPos, "touchPos")
+        -- dump(heroPos, "heroPos")
+        local angle = cc.pToAngleSelf(cc.pSub(heroPos,touchPos)) * 180 / math.pi
+        if angle >= -135 and angle <= -45 then
+            self.heroNode:up()
+        elseif (angle >= -135 and angle <= -180) or (angle >= 135 and angle <= 180) then
+            self.heroNode:right()
+        elseif angle >= 45 and angle <= 135 then
+            self.heroNode:down()
+        else
+            self.heroNode:left()
+        end
+
+    end
+    if route then
+        if not self.heroNode:moveToMap(route.x, route.y) then
+            changeDir()
+        end
+    else
+        changeDir()
+    end
+    
 end
 
 function MainScene:initHero()
     self.heroNode = HeroNode.new(Character1Model.new())
-        :setToMap(2, 98)
+        :setToMap(4, 98)
         :addToMap(self.map)
     -- local pt = Route_pt.new(11, 86)
     -- self.heroNode:move()
     -- local size = route_layer:getLayerSize()
     
+    -- self.heroNode:upPause()
     self.heroNode:up()
-  
 
 end
 

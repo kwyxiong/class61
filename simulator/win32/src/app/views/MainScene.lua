@@ -56,8 +56,10 @@ function MainScene:onCreate()
     --         print("x = " .. v:getX() .. ", y = " .. v:getY())
     --     end
     -- end
-    dump(ccui, "ccui")
-    local label = OneByOneLabel.new()
+    -- dump(ccui, "ccui")
+    local label = OneByOneLabel.new({
+            text = "啊哈哈哈"
+        })
         :move(333,333)
         :addTo(self, 99999)
 end
@@ -69,7 +71,8 @@ function MainScene:initCamera()
 end
 
 function MainScene:initMap()
-    self.map = MyMap.new("tmx/class.tmx", handler(self, self.mapTouch))
+    print("cc.exports.s_tmxClass", cc.exports.s_tmxClass)
+    self.map = MyMap.new(cc.exports.s_tmxClass, handler(self, self.mapTouch))
         :addTo(self.camera)
     self.map:setTouchEnabled(true)
 end
