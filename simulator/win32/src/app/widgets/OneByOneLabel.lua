@@ -40,7 +40,7 @@ function OneByOneLabel:playFunc(dt)
 	local str = string.sub(self.text, 1, self.playIndex * 3)
 	self.label:setString(str)
 	self.playIndex = self.playIndex + 1
-	if self.playIndex > self.maxPlayIndex then
+	if self.playIndex > self.maxPlayIndex and self.entry then
 		scheduler:unscheduleScriptEntry(self.entry)
 		self.entry = nil
 	end
