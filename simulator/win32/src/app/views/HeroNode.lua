@@ -20,6 +20,7 @@ HeroNode.kActionStateRightPause = 8
 function HeroNode:ctor(heroModel)
 	self.model = heroModel
 	self.map = nil
+	self.camera = nil
 	self.actionState = 0
 	self.curCoordinate = nil 			--当前所在格子
 	self.targetCoordinate = nil 		--当前正前往的格子，与当前所在格子相邻
@@ -29,6 +30,10 @@ function HeroNode:ctor(heroModel)
 	self.actionPlayer:setFrameEvent(handler(self, self.frameEvent))
 	self:loadRes()
 	self:registerScriptHandler(handler(self, self.enter_exit))
+end
+
+function HeroNode:setCamera(camera)
+	self.camera = camera
 end
 
 function HeroNode:enter_exit(name)
@@ -157,8 +162,7 @@ function HeroNode:oneCoorMovedCallback(targetCoordinate)
 		self.targetCoordinate = nil
 	end
 	
-	-- self:moveOnTick(0.016)	--优化执行oneCoorMovedCallback时角色的卡顿
-	-- dump(self.targetCoordinate, "self.targetCoordinate")
+	
 end
 
 function HeroNode:moveToMap(x, y)
@@ -186,22 +190,28 @@ function HeroNode:moveOnTick(dt)
 			local dis = math.min(self.model.moveSpeed * 0.016,  - curPos.x + targetPos.x)
 			self:setPositionX(curPos.x + dis)
 			self:right()
+			self.camera:checkAndMove(dis, 0)
 		elseif targetPos.x < curPos.x then 		--向左
 			local dis = math.min(self.model.moveSpeed * 0.016, curPos.x - targetPos.x)
 			self:setPositionX(curPos.x - dis)
 			self:left()
+			self.camera:checkAndMove(-dis, 0)
 		elseif targetPos.y > curPos.y then 		--向上
 			local dis = math.min(self.model.moveSpeed * 0.016,  - curPos.y + targetPos.y)
 			self:setPositionY(curPos.y + dis)
 			self:up()
+			self.camera:checkAndMove(0, dis)
 		elseif targetPos.y < curPos.y then 		--向下
 			local dis = math.min(self.model.moveSpeed * 0.016,   curPos.y - targetPos.y)
 			self:setPositionY(curPos.y - dis)
 			self:down()
+			self.camera:checkAndMove(0, - dis)
 		end
 		if targetPos.x == self:getPositionX() and targetPos.y == self:getPositionY() then
 			self:oneCoorMovedCallback(self.targetCoordinate)
 		end
+
+
 		-- print("x = " .. curPos.x .. " y = " .. curPos.y .. ", x = " .. self:getPositionX() .. " y = " .. self:getPositionY())
 	end
 end

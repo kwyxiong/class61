@@ -22,7 +22,7 @@ function OneByOneLabel:ctor(arg)
 		:addTo(self)
 	-- self.label = cc.Label:create(self.text)
 	-- 	:addTo(self)
-	self.label:setAnchorPoint(cc.p(0, 0.5))
+	self.label:setAnchorPoint(cc.p(0, 1))
 	self.entry = nil
 
 	self:onNodeEvent("exit", handler(self, self.onExit))

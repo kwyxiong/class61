@@ -58,7 +58,7 @@ function MainScene:onCreate()
     -- end
     -- dump(ccui, "ccui")
     local label = OneByOneLabel.new({
-            text = "啊哈哈哈"
+            text = "啊，哈哈哈。"
         })
         :move(333,333)
         :addTo(self, 99999)
@@ -67,7 +67,8 @@ end
 function MainScene:initCamera()
     self.camera = MyCamera.new()
         :addTo(self)
-    self.camera:setDrugEnabled(true)
+    -- self.camera:setDrugEnabled(true)
+    self.camera:setRect(cc.rect(0, 0, 1500, 1500))
 end
 
 function MainScene:initMap()
@@ -85,9 +86,10 @@ function MainScene:mapTouch(location)
         -- dump(touchPos, "touchPos")
         -- dump(heroPos, "heroPos")
         local angle = cc.pToAngleSelf(cc.pSub(heroPos,touchPos)) * 180 / math.pi
+        print("angle", angle)
         if angle >= -135 and angle <= -45 then
             self.heroNode:up()
-        elseif (angle >= -135 and angle <= -180) or (angle >= 135 and angle <= 180) then
+        elseif (angle >= -180 and angle <= -135) or (angle >= 135 and angle <= 180) then
             self.heroNode:right()
         elseif angle >= 45 and angle <= 135 then
             self.heroNode:down()
@@ -116,6 +118,8 @@ function MainScene:initHero()
     
     -- self.heroNode:upPause()
     self.heroNode:up()
+    self.heroNode:setCamera(self.camera)
+    self.camera:setFocus(self.heroNode)
 
 end
 
