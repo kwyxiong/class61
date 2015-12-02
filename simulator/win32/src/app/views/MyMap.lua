@@ -21,6 +21,9 @@ end
 function MyMap:hideLayer()
 	self:getLayer("route_tiles-gakuen-001"):setVisible(false)
 	self:getLayer("limit_tiles-gakuen-001"):setVisible(false)
+	print("**************")
+	print(self:getLayer("route_tiles-gakuen-001"):getLocalZOrder())
+	print(self:getLayer("limit_tiles-gakuen-001"):getLocalZOrder())
 end
 
 function MyMap:initRouteMap()
@@ -31,6 +34,9 @@ function MyMap:initRouteMap()
         local res ={}
         for n = 1, size.height do
             if route_layer:getTileGIDAt(cc.p(m-1, n-1)) ~= 0 then
+            	local sp = route_layer:getTileAt(cc.p(m-1, n-1))
+
+            	print(m-1 .. " " .. n-1 .. "sp " .. sp:getLocalZOrder())
                 res[#res + 1] = 0
             else
                 res[#res + 1] = 1

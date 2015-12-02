@@ -210,6 +210,7 @@ function HeroNode:moveOnTick(dt)
 		if targetPos.x == self:getPositionX() and targetPos.y == self:getPositionY() then
 			self:oneCoorMovedCallback(self.targetCoordinate)
 		end
+		-- print(self.map:getLayer("hero"):getVertexZForPos(self:getPosition()))
 
 
 		-- print("x = " .. curPos.x .. " y = " .. curPos.y .. ", x = " .. self:getPositionX() .. " y = " .. self:getPositionY())
