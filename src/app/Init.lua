@@ -4,3 +4,4 @@
 --
 require("app.resource")
 require("app.utils.CommonFunction")
+require("app.lib.init")

@@ -36,7 +36,7 @@ function MyMap:initRouteMap()
             if route_layer:getTileGIDAt(cc.p(m-1, n-1)) ~= 0 then
             	local sp = route_layer:getTileAt(cc.p(m-1, n-1))
 
-            	print(m-1 .. " " .. n-1 .. "sp " .. sp:getLocalZOrder())
+            	-- print(m-1 .. " " .. n-1 .. "sp " .. sp:getLocalZOrder())
                 res[#res + 1] = 0
             else
                 res[#res + 1] = 1
@@ -65,6 +65,12 @@ function MyMap:getTileCoordinateByTouchLocation(location)
 end
 
 function MyMap:getPosInMapByCoor(coor)
+
+	-- local posAt = self:getLayer("hero"):getPositionAt(coor)
+	-- dump(posAt, "posAt")
+
+	-- dump(cc.p((coor.x + 0.5) * 32, (100 - coor.y - 0.5) * 32))
+
 	return cc.p((coor.x + 0.5) * 32, (100 - coor.y - 0.5) * 32)
 end
 
