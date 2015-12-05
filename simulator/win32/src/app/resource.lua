@@ -8,3 +8,5 @@
 cc.exports.s_tmxClass = "tmx/class.tmx"
 
 cc.exports.s_fontPath = "fonts/fzhy.TTF"
+
+cc.exports.s_bgm1 = "audio/bgm01.mp3"

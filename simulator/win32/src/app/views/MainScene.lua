@@ -62,6 +62,14 @@ function MainScene:onCreate()
         })
         :move(333,333)
         :addTo(self, 99999)
+
+
+
+    local pRibbon = display.newSprite("scale9_1.png", {scale9 = true, capInsets = cc.rect(5,5,22,22)})
+    pRibbon:setContentSize(300, 300)
+    -- pRibbon:setSize(300, 300)
+    pRibbon:setPosition(333,333)
+    self:addChild(pRibbon, 99999)
 end
 
 function MainScene:initCamera()
