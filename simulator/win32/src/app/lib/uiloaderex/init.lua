@@ -28,4 +28,22 @@ ccsui.createLabel = function(options)
   	return label
 end
 
+--创建一个全屏触摸
+ccsui.addTouchLayer = function(touchCallback) 
+	local scene = cc.Director:getInstance():getRunningScene()
+	local layer = cc.Layer:create()
+		:addTo(scene)
+	local function onTouchesEnded(touches, event )
+	    if touchCallback then
+	    	touchCallback()
+	    end
+	end
+
+    local listener = cc.EventListenerTouchAllAtOnce:create()
+    listener:registerScriptHandler(onTouchesEnded,cc.Handler.EVENT_TOUCHES_ENDED )
+    local eventDispatcher = layer:getEventDispatcher()
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, layer)
+
+end
+
 cc.exports.ccsui = ccsui

@@ -43,6 +43,10 @@ function StartScene:onCreate()
 	self:playParticle()
 end
 
+function StartScene:start()
+	self:getApp():enterScene("StartLabels", "FADE", 2)
+end
+
 function StartScene:playParticle()
 	self:runAction(cc.Sequence:create(
 			cc.DelayTime:create(2),
@@ -67,7 +71,7 @@ function StartScene:initMenu()
      local function onRightKeyPressed()
                 -- local event = cc.EventKeyboard:new(cc.KeyCode.KEY_DPAD_RIGHT, false)
                 -- cc.Director:getInstance():getEventDispatcher():dispatchEvent(event)
-                self:getApp():enterScene("MainScene")
+                self:start()
             end
 
   local rightItem = cc.MenuItemFont:create("start")
@@ -131,8 +135,8 @@ function StartScene:initUI()
             									index = index + 1
             								end
             							end
-            							dump(display.SCENE_TRANSITIONS)
-            							self:getApp():enterScene("MainScene", "FADE", 2)
+            							-- dump(display.SCENE_TRANSITIONS)
+            							self:start()
             						end)
             				))	
             		end)

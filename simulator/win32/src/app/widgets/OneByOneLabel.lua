@@ -10,13 +10,17 @@ local OneByOneLabel = class("OneByOneLabel", function()
 function OneByOneLabel:ctor(arg)
 	self.arg = arg or {}
 	self.text = self.arg.text
-	self.speed = 1
+	self.fontColor = self.arg.fontColor
+	self.touchCallback = self.arg.touchCallback
+	self.speed = 0.05
 	self.playIndex = 1
 	self.maxPlayIndex = string.len(self.text) / 3
 	print("self.maxPlayIndex", self.maxPlayIndex)
 	self.label = cc.exports.ccsui.createLabel({
 			text = "",
-			maxLineWidth = 100
+			maxLineWidth = 500,
+			fontSize = 30,
+			fontColor = self.fontColor
 		})	
 		-- :move(333, 333)
 		:addTo(self)
@@ -27,6 +31,18 @@ function OneByOneLabel:ctor(arg)
 
 	self:onNodeEvent("exit", handler(self, self.onExit))
 	self:play()
+end
+
+function OneByOneLabel:over()
+	if self.entry then
+		scheduler:unscheduleScriptEntry(self.entry)
+		self.entry = nil
+	end
+	cc.exports.ccsui.addTouchLayer(function() 
+			if self.touchCallback then
+				self.touchCallback()
+			end
+		end)
 end
 
 function OneByOneLabel:onExit()
@@ -41,8 +57,7 @@ function OneByOneLabel:playFunc(dt)
 	self.label:setString(str)
 	self.playIndex = self.playIndex + 1
 	if self.playIndex > self.maxPlayIndex and self.entry then
-		scheduler:unscheduleScriptEntry(self.entry)
-		self.entry = nil
+		self:over()
 	end
 end
 
